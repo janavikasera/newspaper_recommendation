@@ -1,0 +1,15 @@
+version: "3"
+services:
+  web:
+    image: web_images:1.0.0
+    container_name: web_container
+    ports:
+      # 将内部的8000端口暴露给外部，8000端口可以访问内部的服务
+      - "8000:8000"
+    restart: on-failure
+    privileged: true
+    volumes:
+      - /home/ec2-user/django_news_recommender-main/:/build
+    environment:
+      - TZ=Asia/Shanghai
+    command: ["python","manage.py","runserver","0.0.0.0:8000"]
